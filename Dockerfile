@@ -27,15 +27,19 @@ RUN bitnami-pkg install ruby-2.1.9-2 --checksum d9a014bb284fe1bd181008aa7f78b70b
 
 ## STACKSMITH-END: Modifications below this line will be unchanged when regenerating
 
-# Runtime template
-ENV PATH=/opt/bitnami/ruby/bin:$PATH
+# Additional modules required
+RUN bitnami-pkg install imagemagick-6.7.5-10-3 --checksum 617e85a42c80f58c568f9bc7337e24c03e35cf4c7c22640407a7e1e16880cf88
+RUN bitnami-pkg install mysql-libraries-10.1.11-1 --checksum de90c294a3319ab33f82d4af09d0f4942fcc831268344146b8347ce885d52c29
+RUN bitnami-pkg install mysql-client-10.1.11-1 --checksum 8dea362fbff8ac4cc0342d9e9b62c66498fd8be59ab2e106aefd085888b66b58
+RUN bitnami-pkg install base-functions-1.0.0-1 --checksum ddd7aea91e039e07b571d5f4e589bedb5a1ae241e625f4a06a64a7ede439c7b8
 
-COPY . /app
-RUN chown -R bitnami:bitnami /app
-USER bitnami
-WORKDIR /app
+# Install application
+ENV BITNAMI_APP_NAME=redmine \
+    BITNAMI_APP_VERSION=3.2.1-3
+RUN bitnami-pkg unpack redmine-3.2.1-1 --checksum c1faac8c6b30fc61f0a7486605395ef852cfce6e6cbdca7cdbdfb2bfe2476234
 
-RUN bundle install
+# Setting entry point
+COPY rootfs /
+ENTRYPOINT ["/app-entrypoint.sh"]
 
-EXPOSE 3000
-CMD ["bundle", "exec", "rackup", "-o", "0.0.0.0", "-p", "3000"]
+CMD ["harpoon", "start", "--foreground", "redmine"]
