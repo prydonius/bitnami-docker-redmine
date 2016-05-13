@@ -11,14 +11,14 @@
 ##   Connect to the container at DOCKER_IP:3000
 ##     replacing DOCKER_IP for the IP of your active docker host
 
-FROM gcr.io/stacksmith-images/ubuntu-buildpack:14.04-r06
+FROM gcr.io/stacksmith-images/ubuntu-buildpack:14.04-r07
 
 MAINTAINER Bitnami <containers@bitnami.com>
 
-LABEL com.bitnami.stacksmith.id="6t044em" \
+LABEL com.bitnami.stacksmith.id="blwyobw" \
       com.bitnami.stacksmith.name="prydonius/bitnami-docker-redmine"
 
-ENV STACKSMITH_STACK_ID="6t044em" \
+ENV STACKSMITH_STACK_ID="blwyobw" \
     STACKSMITH_STACK_NAME="prydonius/bitnami-docker-redmine" \
     STACKSMITH_STACK_PRIVATE="1"
 
